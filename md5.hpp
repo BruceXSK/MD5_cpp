@@ -136,9 +136,19 @@ public:
     }
 
     /* Convert digest to string value */
-    string toString()
+    string toString_old()
     {
         return bytesToHexString(digest(), 16);
+    }
+
+    string toString()
+    {
+        auto bytes = digest();
+        char str[32] = {0};
+
+        for (int i = 0; i < 16; ++i)
+            sprintf(&str[2 * i], "%02X", bytes[i]);
+        return string(str);
     }
 
     /* Reset the calculate state */
